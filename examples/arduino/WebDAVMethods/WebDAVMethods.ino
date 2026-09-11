@@ -31,6 +31,7 @@ using namespace asyncsrv;
 //   curl -s -X MKCOL http://192.168.4.1/
 //   curl -s -X MOVE http://192.168.4.1/
 //   curl -s -X COPY http://192.168.4.1/
+//   curl -s -X QUERY -H 'Content-Type: application/json' -d '{"q":1}' http://192.168.4.1/
 //
 // In all cases, the request will be accepted with text/plain response 200 like
 // "Got method PROPFIND on URL /"

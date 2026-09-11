@@ -6,12 +6,28 @@
 
 ```cpp
 request->version();       // uint8_t: 0 = HTTP/1.0, 1 = HTTP/1.1
-request->method();        // enum:    HTTP_GET, HTTP_POST, HTTP_DELETE, HTTP_PUT, HTTP_PATCH, HTTP_HEAD, HTTP_OPTIONS
+request->method();        // enum:    HTTP_GET, HTTP_POST, HTTP_DELETE, HTTP_PUT, HTTP_PATCH, HTTP_HEAD, HTTP_OPTIONS, HTTP_QUERY, …
 request->url();           // String:  URL of the request (not including host, port or GET parameters)
 request->host();          // String:  The requested host (can be used for virtual hosting)
 request->contentType();   // String:  ContentType of the request (not available in Handler::canHandle)
 request->contentLength(); // size_t:  ContentLength of the request (not available in Handler::canHandle)
 request->multipart();     // bool:    True if the request has content type "multipart"
+```
+
+`HTTP_QUERY` is [RFC 10008](https://www.rfc-editor.org/rfc/rfc10008.html): a safe, idempotent method that carries the query in the request body (same body path as POST/PUT/PATCH whenever `Content-Length` or chunked transfer is present). `AsyncCallbackJsonWebHandler` accepts QUERY with `Content-Type: application/json`. Unknown methods still abort the connection.
+
+Register it like any other verb:
+
+```cpp
+server.on("/search", HTTP_QUERY, [](AsyncWebServerRequest *request) {
+  request->send(200, "text/plain", "ok");
+});
+
+auto *json = new AsyncCallbackJsonWebHandler("/search", [](AsyncWebServerRequest *request, JsonVariant &json) {
+  request->send(200, "application/json", "{\"ok\":true}");
+});
+json->setMethod(HTTP_QUERY);
+server.addHandler(json);
 ```
 
 ### Headers

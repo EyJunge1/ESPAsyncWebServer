@@ -151,6 +151,9 @@ enum AsyncWebRequestMethodType : uint32_t {
   HTTP_LINK = 1u << 22,
   HTTP_UNLINK = 1u << 23,
 
+  /* RFC 10008 */
+  HTTP_QUERY = 1u << 24,
+
   /* icecast */
   // HTTP_SOURCE
 
@@ -227,6 +230,9 @@ public:
       : MAP_EXTERNAL_TERNARY(HTTP_PURGE)
       : MAP_EXTERNAL_TERNARY(HTTP_LINK)
       : MAP_EXTERNAL_TERNARY(HTTP_UNLINK)
+#if defined(HTTP_QUERY)
+      : MAP_EXTERNAL_TERNARY(HTTP_QUERY)
+#endif
 #if defined(HTTP_ANY)
       : (t == HTTP_ANY) ? static_cast<uint32_t>(WebRequestMethod::HTTP_INVALID) - 1
 #endif

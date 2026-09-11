@@ -137,6 +137,7 @@ static constexpr const char T_ACL[] = "ACL";
 static constexpr const char T_PURGE[] = "PURGE";
 static constexpr const char T_LINK[] = "LINK";
 static constexpr const char T_UNLINK[] = "UNLINK";
+static constexpr const char T_QUERY[] = "QUERY";
 
 // Req content types
 static constexpr const char T_RCT_HTTP[] = "RCT_HTTP";
