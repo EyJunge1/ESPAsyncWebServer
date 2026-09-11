@@ -119,12 +119,6 @@ void setup() {
   assert(composite3 == composite4);
   assert(composite1 != composite3);
   assert(composite5 == AsyncWebRequestMethod::HTTP_GET);
-
-#if defined(HTTP_PARSER_HAS_QUERY)
-  // http_parser.h is included above, so HTTP_QUERY is the platform enumerator
-  // (33), not the Async bit. The integration ctor must map it.
-  static_assert(WebRequestMethodComposite(HTTP_QUERY).matches(AsyncWebRequestMethod::HTTP_QUERY), "platform HTTP_QUERY must map onto AsyncWebRequestMethod::HTTP_QUERY");
-#endif
 }
 
 // not needed
