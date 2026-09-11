@@ -36,6 +36,7 @@ static constexpr const char T__opaque[] = "\", opaque=\"";
 static constexpr const char T_100_CONTINUE[] = "100-continue";
 static constexpr const char T_13[] = "13";
 static constexpr const char T_ACCEPT[] = "Accept";
+static constexpr const char T_Accept_Query[] = "Accept-Query";
 static constexpr const char T_Accept_Ranges[] = "Accept-Ranges";
 static constexpr const char T_attachment[] = "attachment; filename=\"";
 static constexpr const char T_AUTH[] = "Authorization";
@@ -244,9 +245,9 @@ DECLARE_STR(T_HTTP_CODE_507, "Insufficient Storage");
 DECLARE_STR(T_HTTP_CODE_ANY, "Unknown code");
 
 static constexpr const char *T_only_once_headers[] = {
-  T_Accept_Ranges,     T_Content_Length,   T_Content_Type, T_Connection, T_CORS_ACAC, T_CORS_ACAH,     T_CORS_ACAM, T_CORS_ACAO,
-  T_CORS_ACMA,         T_CORS_O,           T_Date,         T_DIGEST,     T_ETag,      T_Last_Modified, T_LOCATION,  T_retry_after,
-  T_Transfer_Encoding, T_Content_Location, T_Server,       T_WWW_AUTH
+  T_Accept_Ranges,     T_Accept_Query,     T_Content_Length, T_Content_Type, T_Connection, T_CORS_ACAC, T_CORS_ACAH,     T_CORS_ACAM,
+  T_CORS_ACAO,         T_CORS_ACMA,        T_CORS_O,         T_Date,         T_DIGEST,     T_ETag,      T_Last_Modified, T_LOCATION,
+  T_retry_after,       T_Transfer_Encoding, T_Content_Location, T_Server, T_WWW_AUTH
 };
 static constexpr size_t T_only_once_headers_len = sizeof(T_only_once_headers) / sizeof(T_only_once_headers[0]);
 static constexpr size_t T__GZ_LEN = sizeof(T__gz) - 1;

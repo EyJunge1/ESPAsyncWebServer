@@ -113,8 +113,7 @@ size_t AsyncMessagePackResponse::_fillBuffer(uint8_t *data, size_t len) {
 
 // Body handler supporting both content types: JSON and MessagePack
 constexpr static WebRequestMethodComposite JsonHandlerMethods =
-  AsyncWebRequestMethod::HTTP_GET | AsyncWebRequestMethod::HTTP_POST | AsyncWebRequestMethod::HTTP_PUT | AsyncWebRequestMethod::HTTP_PATCH
-  | AsyncWebRequestMethod::HTTP_QUERY;
+  AsyncWebRequestMethod::HTTP_GET | AsyncWebRequestMethod::HTTP_POST | AsyncWebRequestMethod::HTTP_PUT | AsyncWebRequestMethod::HTTP_PATCH;
 
 #if ARDUINOJSON_VERSION_MAJOR == 6
 AsyncCallbackJsonWebHandler::AsyncCallbackJsonWebHandler(AsyncURIMatcher uri, ArJsonRequestHandlerFunction onRequest, size_t maxJsonBufferSize)

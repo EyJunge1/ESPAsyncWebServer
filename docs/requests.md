@@ -14,13 +14,19 @@ request->contentLength(); // size_t:  ContentLength of the request (not availabl
 request->multipart();     // bool:    True if the request has content type "multipart"
 ```
 
-`HTTP_QUERY` is [RFC 10008](https://www.rfc-editor.org/rfc/rfc10008.html): a safe, idempotent method that carries the query in the request body (same body path as POST/PUT/PATCH whenever `Content-Length` or chunked transfer is present). `AsyncCallbackJsonWebHandler` accepts QUERY with `Content-Type: application/json`. Unknown methods still abort the connection.
+`HTTP_QUERY` is [RFC 10008](https://www.rfc-editor.org/rfc/rfc10008.html): a safe, idempotent method that carries the query in the request body (same body path as POST/PUT/PATCH whenever `Content-Length` or chunked transfer is present). Unknown methods still abort the connection.
+
+`AsyncCallbackJsonWebHandler` does **not** enable QUERY by default. Call `setMethod(HTTP_QUERY)` (alone or combined with POST/PUT). QUERY still requires `Content-Type: application/json` (or MessagePack). Advertise supported query media types with `Accept-Query` (`asyncsrv::T_Accept_Query`), e.g. `application/json`.
+
+Platform `http_method` mapping is compiled in only when the platform parser defines `HTTP_PARSER_HAS_QUERY` (ESP-IDF after QUERY support). The library parser always recognizes `QUERY`.
 
 Register it like any other verb:
 
 ```cpp
 server.on("/search", HTTP_QUERY, [](AsyncWebServerRequest *request) {
-  request->send(200, "text/plain", "ok");
+  AsyncWebServerResponse *res = request->beginResponse(200, "text/plain", "ok");
+  res->addHeader("Accept-Query", "application/json");
+  request->send(res);
 });
 
 auto *json = new AsyncCallbackJsonWebHandler("/search", [](AsyncWebServerRequest *request, JsonVariant &json) {

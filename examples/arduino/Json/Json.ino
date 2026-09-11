@@ -63,6 +63,7 @@ void setup() {
 
   // curl -v -X POST -H 'Content-Type: application/json' -d '{"name":"You"}' http://192.168.4.1/json2
   // curl -v -X PUT -H 'Content-Type: application/json' -d '{"name":"You"}' http://192.168.4.1/json2
+  // curl -v -X QUERY -H 'Content-Type: application/json' -d '{"q":"You"}' http://192.168.4.1/json2
   //
   // edge cases:
   //
@@ -74,7 +75,7 @@ void setup() {
   // curl -v -X POST -H "Content-Type: application/json" -d "123456789" -H "Content-Length: 8" http://192.168.4.1/json2 => 12345678
   // curl -v -X POST -H "Content-Type: application/json" -d "123456789" -H "Content-Length: 9" http://192.168.4.1/json2 => 413: Content length exceeds maximum allowed
   handler->setMaxContentLength(8);
-  handler->setMethod(HTTP_POST | HTTP_PUT);
+  handler->setMethod(HTTP_POST | HTTP_PUT | HTTP_QUERY);
   handler->onRequest([](AsyncWebServerRequest *request, JsonVariant &json) {
     serializeJson(json, Serial);
     Serial.println();
