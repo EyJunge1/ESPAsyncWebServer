@@ -23,18 +23,20 @@ Platform `http_method` mapping is compiled in only when the platform parser defi
 Register it like any other verb:
 
 ```cpp
-server.on("/search", HTTP_QUERY, [](AsyncWebServerRequest *request) {
+server.on("/search", AsyncWebRequestMethod::HTTP_QUERY, [](AsyncWebServerRequest *request) {
   AsyncWebServerResponse *res = request->beginResponse(200, "text/plain", "ok");
-  res->addHeader("Accept-Query", "application/json");
+  res->addHeader(asyncsrv::T_Accept_Query, "application/json");
   request->send(res);
 });
 
 auto *json = new AsyncCallbackJsonWebHandler("/search", [](AsyncWebServerRequest *request, JsonVariant &json) {
   request->send(200, "application/json", "{\"ok\":true}");
 });
-json->setMethod(HTTP_QUERY);
+json->setMethod(AsyncWebRequestMethod::HTTP_QUERY);
 server.addHandler(json);
 ```
+
+Use `AsyncWebRequestMethod::HTTP_QUERY` when `http_parser.h` is included: the platform enumerator `HTTP_QUERY` is `33`, not the library bit flag.
 
 ### Headers
 
