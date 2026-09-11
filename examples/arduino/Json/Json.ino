@@ -87,8 +87,6 @@ void setup() {
 
   server.addHandler(handler);
 
-  // RFC 10008 QUERY: same JSON body path as POST/PUT. Not enabled on
-  // AsyncCallbackJsonWebHandler by default; call setMethod(HTTP_QUERY).
   // curl -v -X QUERY -H 'Content-Type: application/json' -d '{"q":1}' http://192.168.4.1/json-query
   AsyncCallbackJsonWebHandler *queryHandler = new AsyncCallbackJsonWebHandler("/json-query");
   queryHandler->setMethod(HTTP_QUERY);
